@@ -1,0 +1,72 @@
+<div class="ledger-main">
+    <!-- Header -->
+    <header class="header">
+        <button class="btn btn-icon-only back-btn" (click)="goBack()">
+            <span class="material-icons">arrow_back</span>
+        </button>
+        <div class="header-content" *ngIf="customer$ | async as customer" style="display: flex; align-items: center; width: 100%;">
+            <div class="customer-details" style="flex: 1; display: flex; align-items: center;">
+                <div class="avatar">{{ customer.name.charAt(0) | uppercase }}</div>
+                <div class="info">
+                    <h2>{{ customer.name }}</h2>
+                    <p class="balance" [class.positive]="customer.currentBalance >= 0" [class.negative]="customer.currentBalance < 0">
+                        {{ customer.currentBalance >= 0 ? 'You will get' : 'You will give' }}
+                        ₹{{ customer.currentBalance | number }}
+                    </p>
+                </div>
+            </div>
+            
+            <button mat-icon-button [matMenuTriggerFor]="customerMenu">
+                 <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #customerMenu="matMenu">
+                <button mat-menu-item (click)="editCustomer(customer)">Edit Customer</button>
+                <button mat-menu-item (click)="deleteCustomer(customer)">Delete Customer</button>
+            </mat-menu>
+        </div>
+    </header>
+
+    <!-- Full Width Transactions List -->
+    <div class="transactions-list">
+        <div class="transaction-card-full" *ngFor="let t of transactions$ | async" 
+             [class.gave]="t.type === 'GAVE'" 
+             [class.got]="t.type === 'GOT'"
+             (click)="openTransactionOptions(t)">
+             
+            <div class="card-left">
+                <div class="date-badge">
+                    <span class="day">{{ t.date | date:'dd' }}</span>
+                    <span class="month">{{ t.date | date:'MMM' }}</span>
+                </div>
+                <div class="details">
+                    <span class="note" *ngIf="t.notes">{{ t.notes }}</span>
+                    <span class="note empty" *ngIf="!t.notes">No details</span>
+                    <span class="full-date">{{ t.date | date:'shortTime' }}</span>
+                </div>
+            </div>
+            
+            <div class="card-right">
+                <span class="amount" [class.gave-text]="t.type === 'GAVE'" [class.got-text]="t.type === 'GOT'">
+                    ₹{{ t.amount | number }}
+                </span>
+                <span class="type-label">{{ t.type === 'GAVE' ? 'GAVE' : 'GOT' }}</span>
+            </div>
+        </div>
+        
+        <div class="empty-state" *ngIf="(transactions$ | async)?.length === 0">
+            <p>No transactions yet.</p>
+        </div>
+    </div>
+    
+    <!-- Header Context Menu for Customer -->
+    <footer class="actions-footer">
+        <button class="btn btn-lg btn-danger action-btn" (click)="addTransaction('GAVE')">
+            <span class="material-icons">remove_circle_outline</span>
+            You Gave ₹
+        </button>
+        <button class="btn btn-lg btn-success action-btn" (click)="addTransaction('GOT')">
+            <span class="material-icons">add_circle_outline</span>
+            You Got ₹
+        </button>
+    </footer>
+</div>

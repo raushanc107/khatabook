@@ -1,0 +1,251 @@
+:host {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    /* Ensure no duplicate scrollbars */
+}
+
+.ledger-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--background-color);
+    /* Clean background for list */
+    position: relative;
+    overflow: hidden;
+}
+
+.header {
+    background: var(--surface-color);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+
+    .back-btn {
+        margin-right: 1rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+
+        @media (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .customer-details {
+        display: flex;
+        align-items: center;
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+
+        .info {
+            h2 {
+                margin: 0;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .balance {
+                margin: 0;
+                font-size: 0.875rem;
+                font-weight: 500;
+
+                &.positive {
+                    color: var(--success-color);
+                }
+
+                &.negative {
+                    color: var(--danger-color);
+                }
+            }
+        }
+    }
+}
+
+.transactions-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 90px;
+    display: flex;
+    flex-direction: column;
+
+    .transaction-card-full {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: var(--hover-bg);
+        }
+
+        &:active {
+            background-color: #e5e5e5;
+        }
+
+        /* Left Side: Date & Details */
+        .card-left {
+            display: flex;
+            align-items: center;
+
+            .date-badge {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--background-color);
+                width: 50px;
+                height: 50px;
+                border-radius: 8px;
+                margin-right: 1rem;
+                flex-shrink: 0;
+
+                .day {
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                }
+
+                .month {
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                    color: var(--text-secondary);
+                }
+            }
+
+            .details {
+                display: flex;
+                flex-direction: column;
+
+                .note {
+                    font-size: 1rem;
+                    color: var(--text-primary);
+                    font-weight: 500;
+                }
+
+                .note.empty {
+                    color: var(--text-secondary);
+                    font-style: italic;
+                }
+
+                .full-date {
+                    font-size: 0.75rem;
+                    color: var(--text-secondary);
+                    margin-top: 2px;
+                }
+            }
+        }
+
+        /* Right Side: Amount */
+        .card-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .amount {
+                font-size: 1.1rem;
+                font-weight: 700;
+            }
+
+            .amount.gave-text {
+                color: var(--danger-color);
+            }
+
+            .amount.got-text {
+                color: var(--success-color);
+            }
+
+            .type-label {
+                font-size: 0.65rem;
+                color: var(--text-secondary);
+                margin-top: 2px;
+            }
+        }
+
+        /* Status Colors */
+        &.gave {
+            .date-badge {
+                background-color: #fef2f2;
+                color: var(--danger-color);
+            }
+
+            .date-badge .day,
+            .date-badge .month {
+                color: var(--danger-color);
+            }
+        }
+
+        &.got {
+            .date-badge {
+                background-color: #f0fdf4;
+                color: var(--success-color);
+            }
+
+            .date-badge .day,
+            .date-badge .month {
+                color: var(--success-color);
+            }
+        }
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+.actions-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface-color);
+    padding: 1rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 1rem;
+    z-index: 20;
+    border-top: 1px solid var(--border-color);
+
+    .action-btn {
+        flex: 1;
+        padding: 1rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        .material-icons {
+            font-size: 1.5rem;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+<div class="list-container">
+    <!-- Header Summary -->
+    <div class="summary-cards">
+        <div class="card summary-card green">
+            <span class="label">You will get</span>
+            <span class="amount">₹{{ totalToGet$ | async }}</span>
+        </div>
+        <div class="card summary-card red">
+            <span class="label">You will give</span>
+            <span class="amount">₹{{ totalToGive$ | async }}</span>
+        </div>
+        <div class="card summary-card blue">
+            <span class="label">Net Balance</span>
+            <span class="amount" [class.positive]="(netBalance$ | async)! >= 0" [class.negative]="(netBalance$ | async)! < 0">
+                ₹{{ (netBalance$ | async)! | number }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Search / Filter -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search Customer..." class="search-input" [formControl]="searchControl">
+    </div>
+
+    <!-- Customer List -->
+    <div class="customer-list-content">
+        <div class="list-header">
+            <span>{{ (customers$ | async)?.length }} Customers</span>
+            <button class="btn btn-primary btn-sm desktop-only" (click)="addCustomer()">+ Add Customer</button>
+        </div>
+
+        <div class="customers">
+            <div class="customer-item card" *ngFor="let customer of customers$ | async" (click)="viewCustomer(customer.id)">
+                <div class="customer-avatar">
+                    {{ customer.name.charAt(0) | uppercase }}
+                </div>
+                <div class="customer-info">
+                    <h3 class="customer-name">{{ customer.name }}</h3>
+                    <span class="last-updated">{{ customer.lastUpdated | date:'mediumDate' }}</span>
+                </div>
+                <div class="customer-balance" [class.positive]="customer.currentBalance >= 0" [class.negative]="customer.currentBalance < 0">
+                    <span class="amount">₹{{ customer.currentBalance | number }}</span>
+                    <span class="status">{{ customer.currentBalance >= 0 ? 'You will get' : 'You will give' }}</span>
+                </div>
+            </div>
+            
+            <div class="empty-state" *ngIf="(customers$ | async)?.length === 0">
+                <p>No customers yet. Add one to start!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB for Mobile -->
+    <button class="fab" (click)="addCustomer()">+</button>
+</div>

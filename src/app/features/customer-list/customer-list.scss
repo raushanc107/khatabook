@@ -7,10 +7,13 @@
 
 .summary-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    /* Responsive 3 columns */
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
     margin-bottom: 1.5rem;
+
+    .full-width {
+        grid-column: 1 / span 2;
+    }
 
     .summary-card {
         display: flex;

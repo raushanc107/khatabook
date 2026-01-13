@@ -1,6 +1,12 @@
 <div class="list-container">
     <!-- Header Summary -->
     <div class="summary-cards">
+        <div class="card summary-card blue full-width">
+            <span class="label">Net Balance</span>
+            <span class="amount" [class.positive]="(netBalance$ | async)! >= 0" [class.negative]="(netBalance$ | async)! < 0">
+                ₹{{ (netBalance$ | async)! | number }}
+            </span>
+        </div>
         <div class="card summary-card green">
             <span class="label">You will get</span>
             <span class="amount">₹{{ totalToGet$ | async }}</span>
@@ -8,12 +14,6 @@
         <div class="card summary-card red">
             <span class="label">You will give</span>
             <span class="amount">₹{{ totalToGive$ | async }}</span>
-        </div>
-        <div class="card summary-card blue">
-            <span class="label">Net Balance</span>
-            <span class="amount" [class.positive]="(netBalance$ | async)! >= 0" [class.negative]="(netBalance$ | async)! < 0">
-                ₹{{ (netBalance$ | async)! | number }}
-            </span>
         </div>
     </div>
 

@@ -1,44 +1,46 @@
-<div class="app-layout">
-    <header class="app-header">
-        <div class="container">
-            <div class="brand">
-                <img src="icons/icon-192x192.png" alt="Logo" class="app-logo">
-                <h1>Khatabook</h1>
+<app-pull-to-refresh (refresh)="handleRefresh()">
+    <div class="app-layout">
+        <header class="app-header">
+            <div class="container">
+                <div class="brand">
+                    <img src="icons/icon-192x192.png" alt="Logo" class="app-logo">
+                    <h1>Khatabook</h1>
+                </div>
+                <div class="actions">
+                <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <mat-menu #settingsMenu="matMenu">
+                    <button mat-menu-item (click)="themeService.toggleTheme()">
+                        <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+                        <span>Toggle Theme</span>
+                    </button>
+                </mat-menu>
+                </div>
             </div>
-            <div class="actions">
-               <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
-                   <mat-icon>settings</mat-icon>
-               </button>
-               <mat-menu #settingsMenu="matMenu">
-                   <button mat-menu-item (click)="themeService.toggleTheme()">
-                       <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
-                       <span>Toggle Theme</span>
-                   </button>
-               </mat-menu>
+        </header>
+
+        <div class="split-pane container">
+            <!-- Sidebar: Customer List -->
+            <!-- Logic: Always visible on Desktop. On Mobile, visible only if at root '/' -->
+            <div class="sidebar" [class.mobile-hidden]="!showListOnMobile">
+                <app-customer-list></app-customer-list>
             </div>
-        </div>
-    </header>
 
-    <div class="split-pane container">
-        <!-- Sidebar: Customer List -->
-        <!-- Logic: Always visible on Desktop. On Mobile, visible only if at root '/' -->
-        <div class="sidebar" [class.mobile-hidden]="!showListOnMobile">
-            <app-customer-list></app-customer-list>
-        </div>
-
-        <!-- Main Content: Router Outlet (Ledger) -->
-        <!-- Logic: Always visible on Desktop (maybe placeholder). On Mobile, visible only if NOT at root -->
-        <div class="main-content" [class.mobile-hidden]="showListOnMobile">
-             <router-outlet></router-outlet>
-             
-             <!-- Desktop Placeholder if no customer selected (i.e. at root) -->
-             <div class="placeholder-content" *ngIf="router.url === '/'">
-                 <div class="placeholder-msg">
-                     <span class="material-icons big-icon">receipt_long</span>
-                     <h2>Select a Customer</h2>
-                     <p>Click on a customer to view their transactions.</p>
-                 </div>
-             </div>
+            <!-- Main Content: Router Outlet (Ledger) -->
+            <!-- Logic: Always visible on Desktop (maybe placeholder). On Mobile, visible only if NOT at root -->
+            <div class="main-content" [class.mobile-hidden]="showListOnMobile">
+                <router-outlet></router-outlet>
+                
+                <!-- Desktop Placeholder if no customer selected (i.e. at root) -->
+                <div class="placeholder-content" *ngIf="router.url === '/'">
+                    <div class="placeholder-msg">
+                        <span class="material-icons big-icon">receipt_long</span>
+                        <h2>Select a Customer</h2>
+                        <p>Click on a customer to view their transactions.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</app-pull-to-refresh>

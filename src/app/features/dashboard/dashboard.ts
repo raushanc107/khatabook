@@ -24,9 +24,8 @@ export class DashboardComponent {
         window.location.reload();
     }
     // Helper to determine if we should show the list on mobile
-    // If URL is root (with or without trailing slash), show list.
+    // If we are NOT on a customer page, we should show the list.
     get showListOnMobile(): boolean {
-        const url = this.router.url.split('?')[0]; // Ignore query params
-        return url === '/' || url === '' || url.endsWith('/khatabook/');
+        return !this.router.url.includes('/customer/');
     }
 }

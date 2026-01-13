@@ -24,8 +24,9 @@ export class DashboardComponent {
         window.location.reload();
     }
     // Helper to determine if we should show the list on mobile
-    // If URL is exactly '/', show list. If deep link, hide list on mobile.
+    // If URL is root (with or without trailing slash), show list.
     get showListOnMobile(): boolean {
-        return this.router.url === '/';
+        const url = this.router.url.split('?')[0]; // Ignore query params
+        return url === '/' || url === '' || url.endsWith('/khatabook/');
     }
 }

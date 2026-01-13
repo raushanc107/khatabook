@@ -32,8 +32,8 @@
             <div class="main-content" [class.mobile-hidden]="showListOnMobile">
                 <router-outlet></router-outlet>
                 
-                <!-- Desktop Placeholder if no customer selected (i.e. at root) -->
-                <div class="placeholder-content" *ngIf="router.url === '/'">
+               <!-- Desktop Placeholder if no customer selected -->
+             <div class="placeholder-content" *ngIf="showListOnMobile">
                     <div class="placeholder-msg">
                         <span class="material-icons big-icon">receipt_long</span>
                         <h2>Select a Customer</h2>

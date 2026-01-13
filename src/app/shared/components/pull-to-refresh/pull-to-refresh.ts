@@ -5,6 +5,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-pull-to-refresh',
   standalone: true,
   imports: [CommonModule],
+  host: {
+    '[style.display]': "'block'",
+    '[style.height]': "'100vh'",
+    '[style.width]': "'100%'"
+  },
   template: `
     <div class="pull-to-refresh-container" #container>
       <div class="refresh-indicator" [style.transform]="'translateY(' + currentY + 'px)'" [class.refreshing]="refreshing">

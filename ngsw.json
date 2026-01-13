@@ -1,0 +1,66 @@
+{
+  "configVersion": 1,
+  "timestamp": 1768339443398,
+  "index": "/khatabook/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/khatabook/icons/icon-128x128.png",
+        "/khatabook/icons/icon-144x144.png",
+        "/khatabook/icons/icon-152x152.png",
+        "/khatabook/icons/icon-192x192.png",
+        "/khatabook/icons/icon-384x384.png",
+        "/khatabook/icons/icon-512x512.png",
+        "/khatabook/icons/icon-72x72.png",
+        "/khatabook/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/khatabook/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/khatabook/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/khatabook/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/khatabook/icons/icon-192x192.png": "15aa6cbc6f29f5e5fae78411f2e5d0d527cbb67f",
+    "/khatabook/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/khatabook/icons/icon-512x512.png": "15aa6cbc6f29f5e5fae78411f2e5d0d527cbb67f",
+    "/khatabook/icons/icon-72x72.png": "15aa6cbc6f29f5e5fae78411f2e5d0d527cbb67f",
+    "/khatabook/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

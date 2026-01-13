@@ -4,8 +4,8 @@
   "theme_color": "#3f51b5",
   "background_color": "#ffffff",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/khatabook/",
+  "start_url": "/khatabook/",
   "icons": [
     {
       "src": "icons/icon-192x192.png",

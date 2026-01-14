@@ -1,5 +1,6 @@
 import { Injectable, signal, effect, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Meta } from '@angular/platform-browser';
 
 export type Theme = 'light' | 'dark' | 'system';
 
@@ -8,6 +9,7 @@ export type Theme = 'light' | 'dark' | 'system';
 })
 export class ThemeService {
   private document = inject(DOCUMENT);
+  private meta = inject(Meta);
   
   // Signal to track current preference
   currentTheme = signal<Theme>('system');
@@ -59,11 +61,17 @@ export class ThemeService {
     const body = this.document.body;
     body.classList.remove('light-theme', 'dark-theme');
     
+    let activeTheme: 'light' | 'dark';
     if (theme === 'system') {
-      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      body.classList.add(isSystemDark ? 'dark-theme' : 'light-theme');
+      activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     } else {
-      body.classList.add(`${theme}-theme`);
+      activeTheme = theme as 'light' | 'dark';
     }
+
+    body.classList.add(`${activeTheme}-theme`);
+    
+    // Update theme-color meta tag for PWA and iOS
+    const themeColor = activeTheme === 'dark' ? '#1e1e1e' : '#ffffff';
+    this.meta.updateTag({ name: 'theme-color', content: themeColor });
   }
 }

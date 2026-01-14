@@ -1,7 +1,7 @@
 {
   "name": "Khatabook",
   "short_name": "Khatabook",
-  "theme_color": "#3f51b5",
+  "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/khatabook/",

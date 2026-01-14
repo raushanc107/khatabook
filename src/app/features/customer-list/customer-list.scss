@@ -5,49 +5,70 @@
     background-color: var(--background-color);
 }
 
-.summary-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+.summary-card {
+    padding: 0 !important;
     margin-bottom: 1.5rem;
+    overflow: hidden;
 
-    .full-width {
-        grid-column: 1 / span 2;
-    }
-
-    .summary-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .summary-top {
+        padding: 1.25rem;
         text-align: center;
-        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
 
         .label {
-            font-size: 0.75rem;
+            display: block;
+            font-size: 0.8rem;
             text-transform: uppercase;
             color: var(--text-secondary);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
         }
 
         .amount {
-            font-size: 1.25rem;
+            margin: 0;
+            font-size: 1.75rem;
             font-weight: 700;
-        }
 
-        &.green .amount {
-            color: var(--success-color);
-        }
-
-        &.red .amount {
-            color: var(--danger-color);
-        }
-
-        &.blue .amount {
-            color: var(--primary-color);
+            &.positive {
+                color: var(--success-color);
+            }
 
             &.negative {
                 color: var(--danger-color);
+            }
+        }
+    }
+
+    .summary-bottom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .summary-item {
+            padding: 1rem;
+            text-align: center;
+
+            &:first-child {
+                border-right: 1px solid var(--border-color);
+            }
+
+            .label {
+                display: block;
+                font-size: 0.75rem;
+                color: var(--text-secondary);
+                margin-bottom: 0.25rem;
+            }
+
+            .amount {
+                font-size: 1.1rem;
+                font-weight: 600;
+
+                &.text-success {
+                    color: var(--success-color);
+                }
+
+                &.text-danger {
+                    color: var(--danger-color);
+                }
             }
         }
     }

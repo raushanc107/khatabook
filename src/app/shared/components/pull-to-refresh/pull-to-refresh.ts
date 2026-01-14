@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, HostListener, ElementRef, ViewChild, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
         <div class="spinner" *ngIf="refreshing"></div>
         <div class="arrow" *ngIf="!refreshing && currentY > 20" [style.transform]="'rotate(' + (currentY * 2) + 'deg)'">↓</div>
       </div>
-      <div class="content" [style.transform]="'translateY(' + currentY + 'px)'" [class.refreshing]="refreshing">
+      <div class="content" [style.transform]="'translateY(' + currentY + 'px)'" [class.refreshing]="refreshing" [style.overflow-y]="scrollable ? 'auto' : 'visible'">
         <ng-content></ng-content>
       </div>
     </div>
@@ -74,6 +74,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class PullToRefreshComponent {
+  @Input() scrollable = true;
   @Output() refresh = new EventEmitter<void>();
   @ViewChild('container') container!: ElementRef;
 
@@ -84,8 +85,27 @@ export class PullToRefreshComponent {
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: TouchEvent) {
-    const content = this.container.nativeElement.querySelector('.content');
-    if (content.scrollTop === 0) {
+    if (this.refreshing) return;
+
+    // Check if any element in the touch path is scrolled down
+    const path = event.composedPath();
+    let isNestedScrolled = false;
+    
+    for (const target of path) {
+      if (target instanceof HTMLElement) {
+        if (target.scrollTop > 0) {
+          isNestedScrolled = true;
+          break;
+        }
+        // Specific check for our own content if it's the one scrolling
+        if (target.classList.contains('content') && target.scrollTop > 0) {
+          isNestedScrolled = true;
+          break;
+        }
+      }
+    }
+
+    if (!isNestedScrolled) {
       this.startY = event.touches[0].pageY;
     } else {
       this.startY = -1;

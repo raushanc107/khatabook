@@ -83,6 +83,28 @@
     display: flex;
     flex-direction: column;
 
+    .year-separator {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--background-color);
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .year-label {
+            background: var(--surface-color);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            // box-shadow: var(--shadow-sm);
+            // border: 1px solid var(--border-color);
+        }
+    }
+
     .transaction-card-full {
         display: flex;
         justify-content: space-between;
@@ -112,7 +134,7 @@
                 justify-content: center;
                 background-color: var(--surface-color);
                 width: 50px;
-                height: 60px;
+                height: 50px;
                 border-radius: 8px;
                 margin-right: 1rem;
                 flex-shrink: 0;
@@ -123,21 +145,12 @@
                     font-size: 1.1rem;
                     font-weight: 700;
                     color: var(--text-primary);
-                    line-height: 1.1;
                 }
 
                 .month {
                     font-size: 0.7rem;
                     text-transform: uppercase;
                     color: var(--text-secondary);
-                    line-height: 1;
-                }
-
-                .year {
-                    font-size: 0.65rem;
-                    color: var(--text-secondary);
-                    opacity: 0.8;
-                    margin-top: 1px;
                 }
             }
 

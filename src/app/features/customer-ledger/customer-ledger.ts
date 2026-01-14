@@ -207,4 +207,11 @@ export class CustomerLedgerComponent implements OnInit {
   goBack() {
       this.router.navigate(['/']);
   }
+
+  shouldShowYearHeader(index: number, transactions: Transaction[]): boolean {
+    if (index === 0) return true;
+    const currentYear = new Date(transactions[index].date).getFullYear();
+    const prevYear = new Date(transactions[index - 1].date).getFullYear();
+    return currentYear !== prevYear;
+  }
 }

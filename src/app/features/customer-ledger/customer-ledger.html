@@ -28,35 +28,43 @@
 
     <!-- Full Width Transactions List -->
     <div class="transactions-list">
-        <div class="transaction-card-full" *ngFor="let t of transactions$ | async" 
-             [class.gave]="t.type === 'GAVE'" 
-             [class.got]="t.type === 'GOT'"
-             (click)="openTransactionOptions(t)">
-             
-            <div class="card-left">
-                <div class="date-badge">
-                    <span class="day">{{ t.date | date:'dd' }}</span>
-                    <span class="month">{{ t.date | date:'MMM' }}</span>
-                    <span class="year">{{ t.date | date:'yyyy' }}</span>
+        <ng-container *ngIf="transactions$ | async as transactions">
+            <ng-container *ngFor="let t of transactions; let i = index">
+                <!-- Year Separator -->
+                <div class="year-separator" *ngIf="shouldShowYearHeader(i, transactions)">
+                    <span class="year-label">{{ t.date | date:'yyyy' }}</span>
                 </div>
-                <div class="details">
-                    <span class="note" *ngIf="t.notes">{{ t.notes }}</span>
-                    <span class="note empty" *ngIf="!t.notes">No details</span>
-                    <span class="full-date">{{ t.date | date:'shortTime' }}</span>
+
+                <div class="transaction-card-full" 
+                     [class.gave]="t.type === 'GAVE'" 
+                     [class.got]="t.type === 'GOT'"
+                     (click)="openTransactionOptions(t)">
+                     
+                    <div class="card-left">
+                        <div class="date-badge">
+                            <span class="day">{{ t.date | date:'dd' }}</span>
+                            <span class="month">{{ t.date | date:'MMM' }}</span>
+                        </div>
+                        <div class="details">
+                            <span class="note" *ngIf="t.notes">{{ t.notes }}</span>
+                            <span class="note empty" *ngIf="!t.notes">No details</span>
+                            <span class="full-date">{{ t.date | date:'shortTime' }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-right">
+                        <span class="amount" [class.gave-text]="t.type === 'GAVE'" [class.got-text]="t.type === 'GOT'">
+                            ₹{{ t.amount | number }}
+                        </span>
+                        <span class="type-label">{{ t.type === 'GAVE' ? 'GAVE' : 'GOT' }}</span>
+                    </div>
                 </div>
+            </ng-container>
+
+            <div class="empty-state" *ngIf="transactions.length === 0">
+                <p>No transactions yet.</p>
             </div>
-            
-            <div class="card-right">
-                <span class="amount" [class.gave-text]="t.type === 'GAVE'" [class.got-text]="t.type === 'GOT'">
-                    ₹{{ t.amount | number }}
-                </span>
-                <span class="type-label">{{ t.type === 'GAVE' ? 'GAVE' : 'GOT' }}</span>
-            </div>
-        </div>
-        
-        <div class="empty-state" *ngIf="(transactions$ | async)?.length === 0">
-            <p>No transactions yet.</p>
-        </div>
+        </ng-container>
     </div>
     
     <!-- Header Context Menu for Customer -->

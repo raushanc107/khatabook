@@ -1,6 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs/operators';
 import { CustomerListComponent } from '../customer-list/customer-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,13 +21,20 @@ export class DashboardComponent {
     public router = inject(Router);
     public themeService = inject(ThemeService);
 
+    // Track URL changes as a signal
+    private url = toSignal(
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd),
+            map(() => this.router.url)
+        ),
+        { initialValue: this.router.url }
+    );
+
+    // Derived signal for visibility
+    public showListOnMobile = computed(() => !this.url().includes('/customer/'));
+
     handleRefresh() {
         // Full reload to check for SW updates and clear state if needed
         window.location.reload();
-    }
-    // Helper to determine if we should show the list on mobile
-    // If we are NOT on a customer page, we should show the list.
-    get showListOnMobile(): boolean {
-        return !this.router.url.includes('/customer/');
     }
 }

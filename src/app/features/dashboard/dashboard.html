@@ -1,6 +1,6 @@
 <app-pull-to-refresh (refresh)="handleRefresh()" [scrollable]="false">
     <div class="app-layout">
-        <header class="app-header" *ngIf="showListOnMobile">
+        <header class="app-header" *ngIf="showListOnMobile()">
             <div class="container">
                 <div class="brand">
                     <img src="icons/icon-192x192.png" alt="Logo" class="app-logo">
@@ -23,17 +23,17 @@
         <div class="split-pane container">
             <!-- Sidebar: Customer List -->
             <!-- Logic: Always visible on Desktop. On Mobile, visible only if at root '/' -->
-            <div class="sidebar" [class.mobile-hidden]="!showListOnMobile">
+            <div class="sidebar" [class.mobile-hidden]="!showListOnMobile()">
                 <app-customer-list></app-customer-list>
             </div>
 
             <!-- Main Content: Router Outlet (Ledger) -->
             <!-- Logic: Always visible on Desktop (maybe placeholder). On Mobile, visible only if NOT at root -->
-            <div class="main-content" [class.mobile-hidden]="showListOnMobile">
+            <div class="main-content" [class.mobile-hidden]="showListOnMobile()">
                 <router-outlet></router-outlet>
                 
                <!-- Desktop Placeholder if no customer selected -->
-             <div class="placeholder-content" *ngIf="showListOnMobile">
+             <div class="placeholder-content" *ngIf="showListOnMobile()">
                     <div class="placeholder-msg">
                         <span class="material-icons big-icon">receipt_long</span>
                         <h2>Select a Customer</h2>

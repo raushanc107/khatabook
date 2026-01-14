@@ -42,4 +42,49 @@ export class LocalStorageService {
     localStorage.removeItem(this.CUSTOMER_KEY);
     localStorage.removeItem(this.TRANSACTION_KEY);
   }
+
+  // Full Data Import/Export
+  getFullData(): { customers: Customer[], transactions: Transaction[] } {
+    const customersJson = localStorage.getItem(this.CUSTOMER_KEY);
+    const transactionsJson = localStorage.getItem(this.TRANSACTION_KEY);
+    
+    return {
+      customers: customersJson ? JSON.parse(customersJson) : [],
+      transactions: transactionsJson ? JSON.parse(transactionsJson) : []
+    };
+  }
+
+  importFullData(data: { customers: Customer[], transactions: Transaction[] }): { addedCustomers: number, addedTransactions: number } {
+    let addedCustomers = 0;
+    let addedTransactions = 0;
+
+    // Get existing data
+    const existingData = this.getFullData();
+    
+    // Merge customers - only add ones with IDs that don't exist
+    if (data.customers && Array.isArray(data.customers)) {
+      const existingCustomerIds = new Set(existingData.customers.map(c => c.id));
+      const newCustomers = data.customers.filter(c => !existingCustomerIds.has(c.id));
+      
+      if (newCustomers.length > 0) {
+        const mergedCustomers = [...existingData.customers, ...newCustomers];
+        localStorage.setItem(this.CUSTOMER_KEY, JSON.stringify(mergedCustomers));
+        addedCustomers = newCustomers.length;
+      }
+    }
+    
+    // Merge transactions - only add ones with IDs that don't exist
+    if (data.transactions && Array.isArray(data.transactions)) {
+      const existingTransactionIds = new Set(existingData.transactions.map(t => t.id));
+      const newTransactions = data.transactions.filter(t => !existingTransactionIds.has(t.id));
+      
+      if (newTransactions.length > 0) {
+        const mergedTransactions = [...existingData.transactions, ...newTransactions];
+        localStorage.setItem(this.TRANSACTION_KEY, JSON.stringify(mergedTransactions));
+        addedTransactions = newTransactions.length;
+      }
+    }
+
+    return { addedCustomers, addedTransactions };
+  }
 }

@@ -62,8 +62,8 @@
     @media (min-width: 768px) {
         // max-width: 1200px !important;
         // margin: 0 auto;
-        padding: 1rem 1rem;
-        gap: 1rem;
+        // padding: 1rem 1rem;
+        // gap: 1rem;
     }
 }
 
@@ -73,11 +73,12 @@
     background: var(--surface-color);
 
     @media (min-width: 768px) {
-        width: 350px;
+        min-width: 450px;
+        width: 32%;
         /* Fixed width sidebar */
-        border-radius: 0.5rem;
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
+        // border-radius: 0.5rem;
+        // border: 1px solid var(--border-color);
+        // box-shadow: var(--shadow-sm);
         flex-shrink: 0;
     }
 }
@@ -91,9 +92,9 @@
 
     @media (min-width: 768px) {
         flex: 1;
-        border-radius: 0.5rem;
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
+        // border-radius: 0.5rem;
+        border-left: 1px solid var(--border-color);
+        // box-shadow: var(--shadow-sm);
         overflow: hidden;
     }
 }

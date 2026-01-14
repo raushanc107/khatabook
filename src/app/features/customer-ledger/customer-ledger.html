@@ -37,6 +37,7 @@
                 <div class="date-badge">
                     <span class="day">{{ t.date | date:'dd' }}</span>
                     <span class="month">{{ t.date | date:'MMM' }}</span>
+                    <span class="year">{{ t.date | date:'yyyy' }}</span>
                 </div>
                 <div class="details">
                     <span class="note" *ngIf="t.notes">{{ t.notes }}</span>

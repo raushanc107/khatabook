@@ -10,11 +10,11 @@
         <div class="summary-bottom">
             <div class="summary-item">
                 <span class="label">You will get</span>
-                <span class="amount text-success">₹{{ totalToGet$ | async }}</span>
+                <span class="amount text-success">₹{{ (totalToGet$ | async) | number }}</span>
             </div>
             <div class="summary-item">
                 <span class="label">You will give</span>
-                <span class="amount text-danger">₹{{ totalToGive$ | async }}</span>
+                <span class="amount text-danger">₹{{ (totalToGive$ | async) | number }}</span>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <app-pull-to-refresh (refresh)="handleRefresh()" [scrollable]="false">
     <div class="app-layout">
-        <header class="app-header" *ngIf="showListOnMobile()">
+        <header class="app-header" [class.mobile-hidden]="!showListOnMobile()">
             <div class="container">
                 <div class="brand">
                     <img src="icons/icon-192x192.png" alt="Logo" class="app-logo">

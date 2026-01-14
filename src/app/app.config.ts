@@ -12,8 +12,15 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { customerReducer, transactionReducer } from './store/khatabook.reducer';
 import { KhatabookEffects } from './store/khatabook.effects';
 
+import { registerLocaleData } from '@angular/common';
+import localeEnIn from '@angular/common/locales/en-IN';
+import { LOCALE_ID } from '@angular/core';
+
+registerLocaleData(localeEnIn);
+
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: LOCALE_ID, useValue: 'en-IN' },
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideStore({

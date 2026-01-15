@@ -1,0 +1,35 @@
+<div class="dialog-header">
+  <mat-icon color="primary">translate</mat-icon>
+  <h2 mat-dialog-title>Select Language / भाषा चुनें</h2>
+</div>
+<mat-dialog-content>
+  <p class="subtitle">Choose your preferred language to continue.</p>
+  
+  <div class="language-options">
+    <div class="language-card" 
+         [class.selected]="selectedLang() === 'en'"
+         (click)="selectLanguage('en')">
+      <div class="lang-info">
+        <span class="lang-native">English</span>
+        <span class="lang-sub">English</span>
+      </div>
+      <mat-icon *ngIf="selectedLang() === 'en'" class="check-icon">check_circle</mat-icon>
+    </div>
+
+    <div class="language-card" 
+         [class.selected]="selectedLang() === 'hi'"
+         (click)="selectLanguage('hi')">
+      <div class="lang-info">
+        <span class="lang-native">हिंदी</span>
+        <span class="lang-sub">Hindi</span>
+      </div>
+      <mat-icon *ngIf="selectedLang() === 'hi'" class="check-icon">check_circle</mat-icon>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button *ngIf="data?.allowCancel" mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="confirm()">
+    Continue / आगे बढ़ें
+  </button>
+</mat-dialog-actions>

@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LocalStorageService } from '../../../../core/services/local-storage.service';
+import { TranslationService } from '../../../../core/services/translation.service';
 
 @Component({
   selector: 'app-factory-reset-dialog',
@@ -15,6 +16,7 @@ import { LocalStorageService } from '../../../../core/services/local-storage.ser
 export class FactoryResetDialogComponent {
   private dialogRef = inject(MatDialogRef<FactoryResetDialogComponent>);
   private localStorageService = inject(LocalStorageService);
+  public translationService = inject(TranslationService);
 
   onCancel(): void {
     this.dialogRef.close();

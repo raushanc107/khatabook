@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ThemeService } from '../../core/services/theme.service';
 import { PullToRefreshComponent } from '../../shared/components/pull-to-refresh/pull-to-refresh';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { TranslationService } from '../../core/services/translation.service';
 import { InfoDialogComponent } from '../../shared/components/info-dialog/info-dialog';
 
 @Component({
@@ -23,6 +24,7 @@ import { InfoDialogComponent } from '../../shared/components/info-dialog/info-di
 export class DashboardComponent {
     public router = inject(Router);
     public themeService = inject(ThemeService);
+    public translationService = inject(TranslationService);
     private localStorageService = inject(LocalStorageService);
     private dialog = inject(MatDialog);
 

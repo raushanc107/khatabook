@@ -10,7 +10,7 @@
                 <div class="info">
                     <h2>{{ customer.name }}</h2>
                     <p class="balance" [class.positive]="customer.currentBalance >= 0" [class.negative]="customer.currentBalance < 0">
-                        {{ customer.currentBalance >= 0 ? 'You will get' : 'You will give' }}
+                        {{ customer.currentBalance >= 0 ? translationService.t().ledger.you_will_get : translationService.t().ledger.you_will_give }}
                         ₹{{ customer.currentBalance | number }}
                     </p>
                 </div>
@@ -20,8 +20,8 @@
                  <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #customerMenu="matMenu">
-                <button mat-menu-item (click)="editCustomer(customer)">Edit Customer</button>
-                <button mat-menu-item (click)="deleteCustomer(customer)">Delete Customer</button>
+                <button mat-menu-item (click)="editCustomer(customer)">{{ translationService.t().ledger.edit_customer }}</button>
+                <button mat-menu-item (click)="deleteCustomer(customer)">{{ translationService.t().ledger.delete_customer }}</button>
             </mat-menu>
         </div>
     </header>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="details">
                             <span class="note" *ngIf="t.notes">{{ t.notes }}</span>
-                            <span class="note empty" *ngIf="!t.notes">No details</span>
+                            <span class="note empty" *ngIf="!t.notes">{{ translationService.t().ledger.no_details }}</span>
                             <span class="full-date">{{ t.date | date:'shortTime' }}</span>
                         </div>
                     </div>
@@ -56,13 +56,13 @@
                         <span class="amount" [class.gave-text]="t.type === 'GAVE'" [class.got-text]="t.type === 'GOT'">
                             ₹{{ t.amount | number }}
                         </span>
-                        <span class="type-label">{{ t.type === 'GAVE' ? 'GAVE' : 'GOT' }}</span>
+                        <span class="type-label">{{ t.type === 'GAVE' ? translationService.t().ledger.gave : translationService.t().ledger.got }}</span>
                     </div>
                 </div>
             </ng-container>
 
             <div class="empty-state" *ngIf="transactions.length === 0">
-                <p>No transactions yet.</p>
+                <p>{{ translationService.t().ledger.no_transactions }}</p>
             </div>
         </ng-container>
     </div>
@@ -71,11 +71,11 @@
     <footer class="actions-footer">
         <button class="btn btn-lg btn-danger action-btn" (click)="addTransaction('GAVE')">
             <span class="material-icons">remove_circle_outline</span>
-            You Gave ₹
+            {{ translationService.t().ledger.you_gave }} ₹
         </button>
         <button class="btn btn-lg btn-success action-btn" (click)="addTransaction('GOT')">
             <span class="material-icons">add_circle_outline</span>
-            You Got ₹
+            {{ translationService.t().ledger.you_got }} ₹
         </button>
     </footer>
 </div>

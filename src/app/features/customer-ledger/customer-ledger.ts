@@ -17,6 +17,7 @@ import { Customer } from '../../core/models/customer.model';
 import { Transaction } from '../../core/models/transaction.model';
 import * as KhatabookActions from '../../store/khatabook.actions';
 import * as KhatabookSelectors from '../../store/khatabook.selectors';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-customer-ledger',
@@ -31,6 +32,7 @@ export class CustomerLedgerComponent implements OnInit {
   private store = inject(Store);
   private dialog = inject(MatDialog);
   private bottomSheet = inject(MatBottomSheet);
+  public translationService = inject(TranslationService);
 
   customerId$ = this.route.paramMap.pipe(map(params => params.get('id')));
   
@@ -81,9 +83,9 @@ export class CustomerLedgerComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
           width: '350px',
           data: {
-              title: 'Delete Transaction?',
-              message: `Are you sure you want to delete this transaction of ₹${transaction.amount}? This action cannot be undone.`,
-              confirmText: 'Delete',
+              title: this.translationService.t().common.delete + '?',
+              message: `Are you sure you want to delete this transaction of ₹${transaction.amount}?`,
+              confirmText: this.translationService.t().common.delete,
               color: 'warn'
           }
       });
@@ -91,8 +93,6 @@ export class CustomerLedgerComponent implements OnInit {
       dialogRef.afterClosed().subscribe(confirmed => {
           if (confirmed) {
               this.store.dispatch(KhatabookActions.deleteTransaction({ id: transaction.id }));
-              
-               // Manual balance update removed - handled by selector
           }
       });
   }
@@ -127,9 +127,9 @@ export class CustomerLedgerComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
           width: '350px',
           data: {
-              title: `Delete ${customer.name}?`,
+              title: this.translationService.t().ledger.delete_customer + '?',
               message: `Are you sure you want to delete this customer? All their associated transactions and data will be permanently removed.`,
-              confirmText: 'Delete Customer',
+              confirmText: this.translationService.t().common.delete,
               color: 'warn'
           }
       });

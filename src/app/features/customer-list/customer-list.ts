@@ -11,6 +11,8 @@ import * as KhatabookActions from '../../store/khatabook.actions';
 import * as KhatabookSelectors from '../../store/khatabook.selectors';
 import { Router } from '@angular/router';
 
+import { TranslationService } from '../../core/services/translation.service';
+
 @Component({
   selector: 'app-customer-list',
   standalone: true,
@@ -22,6 +24,7 @@ export class CustomerListComponent implements OnInit {
   private store = inject(Store);
   private dialog = inject(MatDialog);
   public router = inject(Router);
+  public translationService = inject(TranslationService);
   
   searchControl = new FormControl('');
   

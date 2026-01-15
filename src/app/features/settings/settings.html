@@ -3,20 +3,37 @@
     <button mat-icon-button (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h1>Settings</h1>
+    <h1>{{ translationService.t().settings.title }}</h1>
   </header>
 
   <div class="settings-content">
+    <!-- Language Section -->
+    <section class="settings-section">
+      <h2 class="section-title">{{ translationService.t().settings.language }}</h2>
+      <div class="settings-card">
+        <div class="setting-item" (click)="changeLanguage()">
+          <div class="setting-info">
+            <mat-icon>translate</mat-icon>
+            <div class="setting-text">
+              <span class="label">{{ translationService.t().settings.language }}</span>
+              <span class="description">{{ translationService.t().settings.language_desc }}</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+      </div>
+    </section>
+
     <!-- Appearance Section -->
     <section class="settings-section">
-      <h2 class="section-title">Appearance</h2>
+      <h2 class="section-title">{{ translationService.t().settings.appearance }}</h2>
       <div class="settings-card">
         <div class="setting-item" (click)="themeService.toggleTheme()">
           <div class="setting-info">
             <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
             <div class="setting-text">
-              <span class="label">Dark Mode</span>
-              <span class="description">Currently {{ themeService.currentTheme() === 'dark' ? 'Enabled' : 'Disabled' }}</span>
+              <span class="label">{{ translationService.t().settings.dark_mode }}</span>
+              <span class="description">{{ themeService.currentTheme() === 'dark' ? translationService.t().settings.dark_mode_on : translationService.t().settings.dark_mode_off }}</span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>
@@ -26,14 +43,14 @@
 
     <!-- Analytics Section -->
     <section class="settings-section">
-      <h2 class="section-title">Analytics</h2>
+      <h2 class="section-title">{{ translationService.t().settings.analytics }}</h2>
       <div class="settings-card">
         <div class="setting-item" (click)="goToReports()">
           <div class="setting-info">
             <mat-icon>bar_chart</mat-icon>
             <div class="setting-text">
-              <span class="label">Reports & Insights</span>
-              <span class="description">View financial metrics and trends</span>
+              <span class="label">{{ translationService.t().settings.reports }}</span>
+              <span class="description">{{ translationService.t().settings.reports_desc }}</span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>
@@ -43,14 +60,14 @@
 
     <!-- Data Management Section -->
     <section class="settings-section">
-      <h2 class="section-title">Data Management</h2>
+      <h2 class="section-title">{{ translationService.t().settings.data_management }}</h2>
       <div class="settings-card">
         <div class="setting-item" (click)="exportData()">
           <div class="setting-info">
             <mat-icon>download</mat-icon>
             <div class="setting-text">
-              <span class="label">Export Backup</span>
-              <span class="description">Save your data to a JSON file</span>
+              <span class="label">{{ translationService.t().settings.export_backup }}</span>
+              <span class="description">{{ translationService.t().settings.export_backup_desc }}</span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>
@@ -62,8 +79,8 @@
           <div class="setting-info">
             <mat-icon>upload</mat-icon>
             <div class="setting-text">
-              <span class="label">Import Backup</span>
-              <span class="description">Restore data from a JSON backup</span>
+              <span class="label">{{ translationService.t().settings.import_backup }}</span>
+              <span class="description">{{ translationService.t().settings.import_backup_desc }}</span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>
@@ -75,14 +92,14 @@
 
     <!-- Danger Zone Section -->
     <section class="settings-section">
-      <h2 class="section-title text-danger">Danger Zone</h2>
+      <h2 class="section-title text-danger">{{ translationService.t().settings.danger_zone }}</h2>
       <div class="settings-card danger-card">
         <div class="setting-item" (click)="factoryReset()">
           <div class="setting-info">
             <mat-icon color="warn">delete_forever</mat-icon>
             <div class="setting-text">
-              <span class="label text-danger">Factory Reset</span>
-              <span class="description">Permanently clear all data</span>
+              <span class="label text-danger">{{ translationService.t().settings.factory_reset }}</span>
+              <span class="description">{{ translationService.t().settings.factory_reset_desc }}</span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>
@@ -92,13 +109,13 @@
 
     <!-- About Section -->
     <section class="settings-section">
-      <h2 class="section-title">About</h2>
+      <h2 class="section-title">{{ translationService.t().settings.about }}</h2>
       <div class="settings-card">
         <div class="setting-item inactive">
           <div class="setting-info">
             <mat-icon>info</mat-icon>
             <div class="setting-text">
-              <span class="label">Version</span>
+              <span class="label">{{ translationService.t().settings.version }}</span>
               <span class="description">{{ version }}</span>
             </div>
           </div>
@@ -110,8 +127,8 @@
           <div class="setting-info">
             <mat-icon>help</mat-icon>
             <div class="setting-text">
-              <span class="label">Help & Support</span>
-              <span class="description">Contact us for assistance</span>
+              <span class="label">{{ translationService.t().settings.help_support }}</span>
+              <span class="description">{{ translationService.t().settings.help_support_desc }}</span>
             </div>
           </div>
           <mat-icon class="chevron">open_in_new</mat-icon>
@@ -120,7 +137,7 @@
     </section>
 
     <div class="footer-msg">
-      Made with 💖 for small businesses
+      {{ translationService.t().settings.footer_msg }}
     </div>
   </div>
 </div>

@@ -2,18 +2,18 @@
     <!-- Header Summary -->
     <div class="summary-card card">
         <div class="summary-top">
-            <span class="label">Net Balance</span>
+            <span class="label">{{ translationService.t().ledger.net_balance }}</span>
             <h2 class="amount" [class.positive]="(netBalance$ | async)! >= 0" [class.negative]="(netBalance$ | async)! < 0">
                 ₹{{ (netBalance$ | async)! | number }}
             </h2>
         </div>
         <div class="summary-bottom">
             <div class="summary-item">
-                <span class="label">You will get</span>
+                <span class="label">{{ translationService.t().ledger.you_will_get }}</span>
                 <span class="amount text-success">₹{{ (totalToGet$ | async) | number }}</span>
             </div>
             <div class="summary-item">
-                <span class="label">You will give</span>
+                <span class="label">{{ translationService.t().ledger.you_will_give }}</span>
                 <span class="amount text-danger">₹{{ (totalToGive$ | async) | number }}</span>
             </div>
         </div>
@@ -21,14 +21,14 @@
 
     <!-- Search / Filter -->
     <div class="search-bar">
-        <input type="text" placeholder="Search Customer..." class="search-input" [formControl]="searchControl">
+        <input type="text" [placeholder]="translationService.t().ledger.search_placeholder" class="search-input" [formControl]="searchControl">
     </div>
 
     <!-- Customer List -->
     <div class="customer-list-content">
         <div class="list-header">
-            <span>{{ (customers$ | async)?.length }} Customers</span>
-            <button class="btn btn-primary btn-sm desktop-only" (click)="addCustomer()">+ Add Customer</button>
+            <span>{{ (customers$ | async)?.length }} {{ translationService.t().ledger.customers_count }}</span>
+            <button class="btn btn-primary btn-sm desktop-only" (click)="addCustomer()">{{ translationService.t().ledger.add_customer }}</button>
         </div>
 
         <div class="customers">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="customer-balance" [class.positive]="customer.currentBalance >= 0" [class.negative]="customer.currentBalance < 0">
                     <span class="amount">₹{{ customer.currentBalance | number }}</span>
-                    <span class="status">{{ customer.currentBalance >= 0 ? 'You will get' : 'You will give' }}</span>
+                    <span class="status">{{ customer.currentBalance >= 0 ? translationService.t().ledger.you_will_get : translationService.t().ledger.you_will_give }}</span>
                 </div>
             </div>
             
             <div class="empty-state" *ngIf="(customers$ | async)?.length === 0">
-                <p>No customers yet. Add one to start!</p>
+                <p>{{ translationService.t().ledger.no_customers }} {{ translationService.t().ledger.no_customers_msg }}</p>
             </div>
         </div>
     </div>

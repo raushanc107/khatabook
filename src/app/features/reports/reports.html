@@ -4,29 +4,29 @@
     <button mat-icon-button (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h1>Reports & Insights</h1>
+    <h1>{{ translationService.t().reports.title }}</h1>
   </header>
 
   <!-- Date Range Filter -->
   <div class="date-filter">
     <mat-button-toggle-group [value]="dateRange()" (change)="setDateRange($event.value)">
-      <mat-button-toggle value="7days">Last 7 Days</mat-button-toggle>
-      <mat-button-toggle value="30days">Last 30 Days</mat-button-toggle>
-      <mat-button-toggle value="all">All Time</mat-button-toggle>
+      <mat-button-toggle value="7days">{{ translationService.t().reports.last_7_days }}</mat-button-toggle>
+      <mat-button-toggle value="30days">{{ translationService.t().reports.last_30_days }}</mat-button-toggle>
+      <mat-button-toggle value="all">{{ translationService.t().reports.all_time }}</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 
   <!-- Tabs -->
   <mat-tab-group animationDuration="300ms">
     <!-- Summary Tab -->
-    <mat-tab label="Summary">
+    <mat-tab [label]="translationService.t().reports.tab_summary">
       <div class="tab-content">
         <!-- Metric Cards -->
         <div class="metrics-grid">
           <div class="metric-card" [class.positive]="totalOutstanding() > 0" [class.negative]="totalOutstanding() < 0">
             <mat-icon>account_balance_wallet</mat-icon>
             <div class="metric-info">
-              <span class="metric-label">Net Outstanding</span>
+              <span class="metric-label">{{ translationService.t().reports.net_outstanding }}</span>
               <span class="metric-value">₹{{ totalOutstanding() | number:'1.0-0' }}</span>
             </div>
           </div>
@@ -34,7 +34,7 @@
           <div class="metric-card positive">
             <mat-icon>arrow_upward</mat-icon>
             <div class="metric-info">
-              <span class="metric-label">You'll Get</span>
+              <span class="metric-label">{{ translationService.t().reports.you_will_get }}</span>
               <span class="metric-value">₹{{ totalCreditGiven() | number:'1.0-0' }}</span>
             </div>
           </div>
@@ -42,7 +42,7 @@
           <div class="metric-card negative">
             <mat-icon>arrow_downward</mat-icon>
             <div class="metric-info">
-              <span class="metric-label">You'll Give</span>
+              <span class="metric-label">{{ translationService.t().reports.you_will_give }}</span>
               <span class="metric-value">₹{{ totalDebtOwed() | number:'1.0-0' }}</span>
             </div>
           </div>
@@ -50,7 +50,7 @@
           <div class="metric-card">
             <mat-icon>receipt</mat-icon>
             <div class="metric-info">
-              <span class="metric-label">Total Transactions</span>
+              <span class="metric-label">{{ translationService.t().reports.total_transactions }}</span>
               <span class="metric-value">{{ totalTransactions() }}</span>
             </div>
           </div>
@@ -58,7 +58,7 @@
           <div class="metric-card">
             <mat-icon>people</mat-icon>
             <div class="metric-info">
-              <span class="metric-label">Active Customers</span>
+              <span class="metric-label">{{ translationService.t().reports.active_customers }}</span>
               <span class="metric-value">{{ activeCustomers() }}</span>
             </div>
           </div>
@@ -66,7 +66,7 @@
 
         <!-- Cash Flow Chart -->
         <div class="chart-card">
-          <h3>Cash Flow Trend</h3>
+          <h3>{{ translationService.t().reports.cash_flow_trend }}</h3>
           <div class="chart-container">
             <canvas baseChart
               [data]="cashFlowChartData()"
@@ -78,7 +78,7 @@
 
         <!-- Customer Distribution -->
         <div class="chart-card">
-          <h3>Customer Distribution</h3>
+          <h3>{{ translationService.t().reports.customer_distribution }}</h3>
           <div class="chart-container small">
             <canvas baseChart
               [data]="distributionChartData()"
@@ -91,10 +91,10 @@
     </mat-tab>
 
     <!-- Customers Tab -->
-    <mat-tab label="Customers">
+    <mat-tab [label]="translationService.t().reports.tab_customers">
       <div class="tab-content">
         <div class="chart-card">
-          <h3>Top Customers by Outstanding Balance</h3>
+          <h3>{{ translationService.t().reports.top_customers_balance }}</h3>
           <div class="chart-container large">
             <canvas baseChart
               [data]="topCustomersChartData()"
@@ -106,7 +106,7 @@
 
         <!-- Customer List -->
         <div class="customer-list">
-          <h3>All Customers</h3>
+          <h3>{{ translationService.t().reports.all_customers }}</h3>
           <div class="customer-item" *ngFor="let customer of topCustomers()">
             <div class="customer-info">
               <span class="customer-name">{{ customer.name }}</span>
@@ -121,10 +121,10 @@
     </mat-tab>
 
     <!-- Trends Tab -->
-    <mat-tab label="Trends">
+    <mat-tab [label]="translationService.t().reports.tab_trends">
       <div class="tab-content">
         <div class="chart-card">
-          <h3>Transaction Activity</h3>
+          <h3>{{ translationService.t().reports.transaction_activity }}</h3>
           <div class="chart-container">
             <canvas baseChart
               [data]="cashFlowChartData()"
@@ -135,18 +135,18 @@
         </div>
 
         <div class="insights-card">
-          <h3>Quick Insights</h3>
+          <h3>{{ translationService.t().reports.quick_insights }}</h3>
           <div class="insight-item">
             <mat-icon>trending_up</mat-icon>
-            <span>Total credit given: ₹{{ totalCreditGiven() | number:'1.0-0' }}</span>
+            <span>{{ translationService.t().reports.total_credit_given }}: ₹{{ totalCreditGiven() | number:'1.0-0' }}</span>
           </div>
           <div class="insight-item">
             <mat-icon>trending_down</mat-icon>
-            <span>Total debt owed: ₹{{ totalDebtOwed() | number:'1.0-0' }}</span>
+            <span>{{ translationService.t().reports.total_debt_owed }}: ₹{{ totalDebtOwed() | number:'1.0-0' }}</span>
           </div>
           <div class="insight-item">
             <mat-icon>people</mat-icon>
-            <span>{{ activeCustomers() }} customers with outstanding balance</span>
+            <span>{{ activeCustomers() }} {{ translationService.t().reports.customers_outstanding }}</span>
           </div>
         </div>
       </div>

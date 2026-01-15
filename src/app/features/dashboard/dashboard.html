@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="brand">
                     <img src="icons/icon-192x192.png" alt="Logo" class="app-logo">
-                    <h1>Khatabook</h1>
+                    <h1>{{ translationService.t().dashboard.app_name }}</h1>
                 </div>
                 <div class="actions">
                 <button mat-icon-button routerLink="/settings">
@@ -30,8 +30,8 @@
              <div class="placeholder-content" *ngIf="showListOnMobile()">
                     <div class="placeholder-msg">
                         <span class="material-icons big-icon">receipt_long</span>
-                        <h2>Select a Customer</h2>
-                        <p>Click on a customer to view their transactions.</p>
+                        <h2>{{ translationService.t().dashboard.select_customer }}</h2>
+                        <p>{{ translationService.t().dashboard.select_customer_desc }}</p>
                     </div>
                 </div>
             </div>

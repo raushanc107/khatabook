@@ -7,8 +7,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ThemeService } from '../../core/services/theme.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { TranslationService } from '../../core/services/translation.service';
 import { InfoDialogComponent } from '../../shared/components/info-dialog/info-dialog';
 import { FactoryResetDialogComponent } from './components/factory-reset-dialog/factory-reset-dialog';
+import { LanguageSelectionDialogComponent } from '../../shared/components/language-selection-dialog/language-selection-dialog';
 
 @Component({
   selector: 'app-settings',
@@ -27,6 +29,7 @@ export class SettingsComponent {
   private router = inject(Router);
   public themeService = inject(ThemeService);
   private localStorageService = inject(LocalStorageService);
+  public translationService = inject(TranslationService);
   private dialog = inject(MatDialog);
 
   version = '1.2.0';
@@ -37,6 +40,12 @@ export class SettingsComponent {
 
   goToReports() {
     this.router.navigate(['/reports']);
+  }
+
+  changeLanguage() {
+    this.dialog.open(LanguageSelectionDialogComponent, {
+      data: { allowCancel: true }
+    });
   }
 
   exportData() {
@@ -71,17 +80,21 @@ export class SettingsComponent {
           if (result.addedCustomers === 0 && result.addedTransactions === 0) {
             this.dialog.open(InfoDialogComponent, {
               data: {
-                title: 'No New Data',
-                message: 'All items in the backup already exist in your current data.',
+                title: this.translationService.t().dialogs.no_new_data_title,
+                message: this.translationService.t().dialogs.no_new_data_msg,
                 icon: 'info',
                 iconColor: 'primary'
               }
             });
           } else {
+            const message = this.translationService.t().dialogs.import_success_msg
+                .replace('{customers}', result.addedCustomers.toString())
+                .replace('{transactions}', result.addedTransactions.toString());
+            
             const dialogRef = this.dialog.open(InfoDialogComponent, {
               data: {
-                title: 'Import Successful!',
-                message: `Added:\n• ${result.addedCustomers} new customer(s)\n• ${result.addedTransactions} new transaction(s)\n\nThe application will now reload to apply changes.`,
+                title: this.translationService.t().dialogs.import_success_title,
+                message: message,
                 icon: 'check_circle',
                 iconColor: 'success'
               }
@@ -91,8 +104,8 @@ export class SettingsComponent {
         } else {
           this.dialog.open(InfoDialogComponent, {
             data: {
-              title: 'Invalid File',
-              message: 'The selected file is not a valid Khatabook backup.',
+              title: this.translationService.t().dialogs.invalid_file_title,
+              message: this.translationService.t().dialogs.invalid_file_msg,
               icon: 'error',
               iconColor: 'warn'
             }
@@ -101,8 +114,8 @@ export class SettingsComponent {
       } catch (err) {
         this.dialog.open(InfoDialogComponent, {
           data: {
-            title: 'Error',
-            message: 'Failed to parse the backup file.',
+            title: this.translationService.t().dialogs.error_parsing_title,
+            message: this.translationService.t().dialogs.error_parsing_msg,
             icon: 'error',
             iconColor: 'warn'
           }

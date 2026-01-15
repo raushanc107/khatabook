@@ -11,6 +11,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import * as KhatabookSelectors from '../../store/khatabook.selectors';
 import * as KhatabookActions from '../../store/khatabook.actions';
 import { ThemeService } from '../../core/services/theme.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 type DateRange = '7days' | '30days' | 'all';
 
@@ -32,6 +33,7 @@ export class ReportsComponent implements OnInit {
   private router = inject(Router);
   private store = inject(Store);
   public themeService = inject(ThemeService);
+  public translationService = inject(TranslationService);
 
   // Data from store
   customers = this.store.selectSignal(KhatabookSelectors.selectAllCustomersWithBalance);
@@ -125,7 +127,7 @@ export class ReportsComponent implements OnInit {
       labels,
       datasets: [
         {
-          label: 'You Gave',
+          label: this.translationService.t().dialogs.you_gave,
           data: gaveData,
           borderColor: '#ef4444',
           backgroundColor: 'rgba(239, 68, 68, 0.15)',
@@ -137,7 +139,7 @@ export class ReportsComponent implements OnInit {
           pointHoverRadius: 6
         },
         {
-          label: 'You Got',
+          label: this.translationService.t().dialogs.you_got,
           data: gotData,
           borderColor: '#10b981',
           backgroundColor: 'rgba(16, 185, 129, 0.15)',
@@ -158,7 +160,7 @@ export class ReportsComponent implements OnInit {
     return {
       labels: top.map(c => c.name),
       datasets: [{
-        label: 'Outstanding Balance',
+        label: this.translationService.t().reports.outstanding_balance,
         data: top.map(c => c.currentBalance),
         backgroundColor: top.map(c => c.currentBalance > 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)'),
         borderRadius: 8,
@@ -172,7 +174,7 @@ export class ReportsComponent implements OnInit {
   distributionChartData = computed<ChartData<'doughnut'>>(() => {
     const dist = this.customerDistribution();
     return {
-      labels: ['You\'ll Get', 'You\'ll Give'],
+      labels: [this.translationService.t().reports.you_will_get, this.translationService.t().reports.you_will_give],
       datasets: [{
         data: [dist.creditors, dist.debtors],
         backgroundColor: ['#10b981', '#ef4444'],

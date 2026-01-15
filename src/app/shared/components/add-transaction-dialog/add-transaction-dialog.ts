@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
+import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
   selector: 'app-add-transaction-dialog',
@@ -22,36 +23,36 @@ import { FormsModule } from '@angular/forms';
       FormsModule
   ],
   template: `
-    <h2 mat-dialog-title>{{ data.id ? 'Edit' : 'Add' }} Transaction ({{ data.type === 'GAVE' ? 'You Gave' : 'You Got' }})</h2>
+    <h2 mat-dialog-title>{{ data.id ? translationService.t().dialogs.edit_transaction_title : translationService.t().dialogs.add_transaction_title }} ({{ data.type === 'GAVE' ? translationService.t().dialogs.you_gave : translationService.t().dialogs.you_got }})</h2>
     <mat-dialog-content>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Amount</mat-label>
+        <mat-label>{{ translationService.t().dialogs.amount }}</mat-label>
         <span matPrefix>₹ &nbsp;</span>
         <input matInput type="number" [(ngModel)]="formData.amount" placeholder="0.00" autoFocus required>
       </mat-form-field>
 
       <div class="row">
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Date</mat-label>
+            <mat-label>{{ translationService.t().dialogs.date }}</mat-label>
             <input matInput [matDatepicker]="picker" [(ngModel)]="formData.date">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Time</mat-label>
+            <mat-label>{{ translationService.t().dialogs.time }}</mat-label>
             <input matInput type="time" [(ngModel)]="formData.time">
           </mat-form-field>
       </div>
       
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Note (Optional)</mat-label>
-        <input matInput [(ngModel)]="formData.note" placeholder="Ex. Lunch money">
+        <mat-label>{{ translationService.t().dialogs.note }}</mat-label>
+        <input matInput [(ngModel)]="formData.note" [placeholder]="translationService.t().dialogs.note_placeholder">
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Cancel</button>
-      <button mat-raised-button [color]="data.type === 'GAVE' ? 'warn' : 'primary'" (click)="onSave()" [disabled]="!formData.amount">Save</button>
+      <button mat-button (click)="onCancel()">{{ translationService.t().common.cancel }}</button>
+      <button mat-raised-button [color]="data.type === 'GAVE' ? 'warn' : 'primary'" (click)="onSave()" [disabled]="!formData.amount">{{ translationService.t().common.save }}</button>
     </mat-dialog-actions>
   `,
   styles: [`
@@ -63,6 +64,7 @@ import { FormsModule } from '@angular/forms';
   `]
 })
 export class AddTransactionDialogComponent {
+  public translationService = inject(TranslationService);
   readonly dialogRef = inject(MatDialogRef<AddTransactionDialogComponent>);
   readonly data = inject<{ type: 'GAVE' | 'GOT', id?: string, amount?: number, date?: string, note?: string }>(MAT_DIALOG_DATA);
   

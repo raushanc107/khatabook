@@ -1,11 +1,11 @@
 .reports-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--background-color) 0%, #e0e7ff 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
     padding-bottom: 3rem;
 }
 
 body.dark-theme .reports-container {
-    background: linear-gradient(135deg, var(--background-color) 0%, #1e1b4b 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
 }
 
 .reports-header {
@@ -25,8 +25,11 @@ body.dark-theme .reports-container {
         margin: 0;
         font-size: 1.5rem;
         font-weight: 800;
+        line-height: 1.4;
+        padding-bottom: 4px;
         background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -0.02em;
     }
@@ -45,6 +48,7 @@ body.dark-theme .reports-header {
     h1 {
         background: linear-gradient(to right, var(--primary-light), #c7d2fe);
         -webkit-background-clip: text;
+        background-clip: text;
     }
 
     button {

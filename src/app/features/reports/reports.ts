@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import * as KhatabookSelectors from '../../store/khatabook.selectors';
 import * as KhatabookActions from '../../store/khatabook.actions';
+import { ThemeService } from '../../core/services/theme.service';
 
 type DateRange = '7days' | '30days' | 'all';
 
@@ -30,6 +31,7 @@ type DateRange = '7days' | '30days' | 'all';
 export class ReportsComponent implements OnInit {
   private router = inject(Router);
   private store = inject(Store);
+  public themeService = inject(ThemeService);
 
   // Data from store
   customers = this.store.selectSignal(KhatabookSelectors.selectAllCustomersWithBalance);
@@ -182,33 +184,79 @@ export class ReportsComponent implements OnInit {
   });
 
   // Chart configurations
-  lineChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'top' }
-    },
-    scales: {
-      y: { beginAtZero: true }
-    }
-  };
+  lineChartOptions = computed<ChartConfiguration['options']>(() => {
+    const isDark = this.themeService.currentTheme() === 'dark' || 
+                  (this.themeService.currentTheme() === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
 
-  barChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    indexAxis: 'y',
-    plugins: {
-      legend: { display: false }
-    }
-  };
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { 
+          display: true, 
+          position: 'top',
+          labels: { color: textColor }
+        }
+      },
+      scales: {
+        y: { 
+          beginAtZero: true,
+          grid: { color: gridColor },
+          ticks: { color: textColor }
+        },
+        x: {
+          grid: { color: 'transparent' },
+          ticks: { color: textColor }
+        }
+      }
+    };
+  });
 
-  doughnutChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'bottom' }
-    }
-  };
+  barChartOptions = computed<ChartConfiguration['options']>(() => {
+    const isDark = this.themeService.currentTheme() === 'dark' || 
+                  (this.themeService.currentTheme() === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          grid: { color: gridColor },
+          ticks: { color: textColor }
+        },
+        y: {
+          grid: { color: 'transparent' },
+          ticks: { color: textColor }
+        }
+      }
+    };
+  });
+
+  doughnutChartOptions = computed<ChartConfiguration['options']>(() => {
+    const isDark = this.themeService.currentTheme() === 'dark' || 
+                  (this.themeService.currentTheme() === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const textColor = isDark ? '#94a3b8' : '#64748b';
+
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { 
+          display: true, 
+          position: 'bottom',
+          labels: { color: textColor }
+        }
+      }
+    };
+  });
 
   goBack() {
     this.router.navigate(['/']);

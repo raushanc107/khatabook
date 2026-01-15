@@ -34,6 +34,10 @@ export class SettingsComponent {
     this.router.navigate(['/']);
   }
 
+  goToReports() {
+    this.router.navigate(['/reports']);
+  }
+
   exportData() {
     const data = this.localStorageService.getFullData();
     const jsonString = JSON.stringify(data, null, 2);

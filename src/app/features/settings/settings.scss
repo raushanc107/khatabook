@@ -12,11 +12,11 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1rem;
+    height: 60px;
+    box-sizing: border-box;
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -24,41 +24,39 @@
     h1 {
         margin: 0;
         font-size: 1.5rem;
-        font-weight: 800;
-        line-height: 1.4;
-        padding-bottom: 4px;
-        background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: -0.02em;
+        font-weight: 600;
+        color: var(--primary-color);
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
+        -webkit-text-fill-color: initial;
     }
 
     button {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        border-radius: 12px;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        color: var(--text-primary);
+        padding: 8px;
+        /* Optional, mat-icon-button handles this usually */
+
+        &:hover {
+            background: var(--hover-bg);
+        }
     }
 }
 
 :host-context(.dark-theme) .settings-header {
-    background: rgba(15, 23, 42, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
 
     h1 {
-        background: linear-gradient(to right, var(--primary-light), #c7d2fe);
-        -webkit-background-clip: text;
-        background-clip: text;
+        color: var(--primary-color);
     }
 
     button {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
-        color: white;
-
-        mat-icon {
-            color: #e2e8f0;
-        }
+        border-color: var(--border-color);
+        color: var(--text-primary);
     }
 }
 
@@ -123,7 +121,7 @@
         gap: 1.25rem;
 
         mat-icon {
-            color: var(--primary-color);
+            color: rgb(68, 71, 78);
             font-size: 1.5rem;
             width: 1.5rem;
             height: 1.5rem;
@@ -168,6 +166,10 @@
 
     .chevron {
         color: var(--text-secondary);
+    }
+
+    mat-icon {
+        color: var(--text-primary);
     }
 }
 

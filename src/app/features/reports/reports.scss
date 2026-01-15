@@ -4,19 +4,19 @@
     padding-bottom: 3rem;
 }
 
-body.dark-theme .reports-container {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+:host-context(.dark-theme) .reports-container {
+    background: var(--background-color);
 }
 
 .reports-header {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1rem;
+    height: 60px;
+    box-sizing: border-box;
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -24,36 +24,39 @@ body.dark-theme .reports-container {
     h1 {
         margin: 0;
         font-size: 1.5rem;
-        font-weight: 800;
-        line-height: 1.4;
-        padding-bottom: 4px;
-        background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: -0.02em;
+        font-weight: 600;
+        color: var(--primary-color);
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
+        -webkit-text-fill-color: initial;
     }
 
     button {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        border-radius: 12px;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        color: var(--text-primary);
+        padding: 8px;
+        /* Optional, mat-icon-button handles this usually */
+
+        &:hover {
+            background: var(--hover-bg);
+        }
     }
 }
 
-body.dark-theme .reports-header {
-    background: rgba(30, 30, 30, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+:host-context(.dark-theme) .reports-header {
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
 
     h1 {
-        background: linear-gradient(to right, var(--primary-light), #c7d2fe);
-        -webkit-background-clip: text;
-        background-clip: text;
+        color: var(--primary-color);
     }
 
     button {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+        border: none;
     }
 }
 
@@ -87,7 +90,7 @@ body.dark-theme .reports-header {
     }
 }
 
-body.dark-theme .date-filter {
+:host-context(.dark-theme) .date-filter {
     mat-button-toggle-group {
         background: rgba(255, 255, 255, 0.05) !important;
     }
@@ -104,7 +107,7 @@ body.dark-theme .date-filter {
     padding: 1.5rem;
 }
 
-// Glass Card Mixin
+// Glass Card Mixin - Simplified/Removed opacity for consistency
 @mixin glass-card {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(16px);
@@ -114,11 +117,23 @@ body.dark-theme .date-filter {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
-body.dark-theme {
+:host-context(.dark-theme) {
     @mixin glass-card-dark {
-        background: rgba(30, 30, 30, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--surface-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+}
+
+// Metric Cards
+:host-context(.dark-theme) .metric-card {
+    background: var(--surface-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        background: var(--surface-color);
+        /* Or slightly lighter if needed */
     }
 }
 
@@ -220,14 +235,7 @@ body.dark-theme {
     }
 }
 
-body.dark-theme .metric-card {
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
 
-    &:hover {
-        background: rgba(40, 40, 40, 0.7);
-    }
-}
 
 // Chart Cards
 .chart-card {
@@ -254,9 +262,9 @@ body.dark-theme .metric-card {
     }
 }
 
-body.dark-theme .chart-card {
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+:host-context(.dark-theme) .chart-card {
+    background: var(--surface-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .chart-container {
@@ -297,9 +305,9 @@ body.dark-theme .chart-card {
     }
 }
 
-body.dark-theme .customer-list {
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+:host-context(.dark-theme) .customer-list {
+    background: var(--surface-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .customer-item {
@@ -351,7 +359,7 @@ body.dark-theme .customer-list {
     }
 }
 
-body.dark-theme .customer-item {
+:host-context(.dark-theme) .customer-item {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
     .customer-balance {
@@ -372,9 +380,9 @@ body.dark-theme .customer-item {
     }
 }
 
-body.dark-theme .insights-card {
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+:host-context(.dark-theme) .insights-card {
+    background: var(--surface-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .insight-item {
@@ -411,7 +419,7 @@ body.dark-theme .insights-card {
     }
 }
 
-body.dark-theme .insight-item {
+:host-context(.dark-theme) .insight-item {
     background: rgba(255, 255, 255, 0.03);
 
     mat-icon {

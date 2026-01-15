@@ -42,7 +42,7 @@ body.dark-theme .settings-container {
 }
 
 body.dark-theme .settings-header {
-    background: rgba(30, 30, 30, 0.7);
+    background: rgba(15, 23, 42, 0.7);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     h1 {
@@ -54,6 +54,11 @@ body.dark-theme .settings-header {
     button {
         background: rgba(255, 255, 255, 0.05);
         border-color: rgba(255, 255, 255, 0.1);
+        color: white;
+
+        mat-icon {
+            color: #e2e8f0;
+        }
     }
 }
 
@@ -76,6 +81,10 @@ body.dark-theme .settings-header {
     }
 }
 
+body.dark-theme .section-title {
+    color: #94a3b8;
+}
+
 .settings-card {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(16px);
@@ -87,8 +96,9 @@ body.dark-theme .settings-header {
 }
 
 body.dark-theme .settings-card {
-    background: rgba(30, 30, 30, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 .setting-item {
@@ -143,8 +153,22 @@ body.dark-theme .settings-card {
     }
 }
 
-body.dark-theme .setting-item:hover:not(.inactive) {
-    background: rgba(255, 255, 255, 0.05);
+body.dark-theme .setting-item {
+    &:hover:not(.inactive) {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .label {
+        color: #f1f5f9;
+    }
+
+    .description {
+        color: #94a3b8;
+    }
+
+    .chevron {
+        color: #64748b;
+    }
 }
 
 .footer-msg {

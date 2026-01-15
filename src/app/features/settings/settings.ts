@@ -28,7 +28,7 @@ export class SettingsComponent {
   private localStorageService = inject(LocalStorageService);
   private dialog = inject(MatDialog);
 
-  version = '1.2.1';
+  version = '1.2.0';
 
   goBack() {
     this.router.navigate(['/']);

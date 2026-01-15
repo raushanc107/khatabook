@@ -26,6 +26,7 @@ import { CommonModule } from '@angular/common';
       position: relative;
       overflow: hidden;
       height: 100%;
+      background-color: var(--surface-color);
     }
     .refresh-indicator {
       position: absolute;

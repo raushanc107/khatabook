@@ -15,6 +15,10 @@
                         <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
                         <span>Toggle Theme</span>
                     </button>
+                    <button mat-menu-item routerLink="/reports">
+                        <mat-icon>analytics</mat-icon>
+                        <span>Reports & Insights</span>
+                    </button>
                     <button mat-menu-item (click)="exportData()">
                         <mat-icon>download</mat-icon>
                         <span>Export Backup</span>

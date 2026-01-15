@@ -8,5 +8,9 @@ export const routes: Routes = [
     children: [
         { path: 'customer/:id', loadComponent: () => import('./features/customer-ledger/customer-ledger').then(m => m.CustomerLedgerComponent) }
     ]
+  },
+  { 
+    path: 'reports', 
+    loadComponent: () => import('./features/reports/reports').then(m => m.ReportsComponent)
   }
 ];

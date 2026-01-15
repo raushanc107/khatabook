@@ -1,6 +1,6 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs/operators';
 import { CustomerListComponent } from '../customer-list/customer-list';
@@ -16,7 +16,7 @@ import { InfoDialogComponent } from '../../shared/components/info-dialog/info-di
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, CustomerListComponent, MatMenuModule, MatIconModule, MatButtonModule, PullToRefreshComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, CustomerListComponent, MatMenuModule, MatIconModule, MatButtonModule, PullToRefreshComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })

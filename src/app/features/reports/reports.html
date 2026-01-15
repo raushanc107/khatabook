@@ -1,0 +1,155 @@
+<div class="reports-container">
+  <!-- Header -->
+  <header class="reports-header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Reports & Insights</h1>
+  </header>
+
+  <!-- Date Range Filter -->
+  <div class="date-filter">
+    <mat-button-toggle-group [value]="dateRange()" (change)="setDateRange($event.value)">
+      <mat-button-toggle value="7days">Last 7 Days</mat-button-toggle>
+      <mat-button-toggle value="30days">Last 30 Days</mat-button-toggle>
+      <mat-button-toggle value="all">All Time</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- Tabs -->
+  <mat-tab-group animationDuration="300ms">
+    <!-- Summary Tab -->
+    <mat-tab label="Summary">
+      <div class="tab-content">
+        <!-- Metric Cards -->
+        <div class="metrics-grid">
+          <div class="metric-card" [class.positive]="totalOutstanding() > 0" [class.negative]="totalOutstanding() < 0">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <div class="metric-info">
+              <span class="metric-label">Net Outstanding</span>
+              <span class="metric-value">₹{{ totalOutstanding() | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card positive">
+            <mat-icon>arrow_upward</mat-icon>
+            <div class="metric-info">
+              <span class="metric-label">You'll Get</span>
+              <span class="metric-value">₹{{ totalCreditGiven() | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card negative">
+            <mat-icon>arrow_downward</mat-icon>
+            <div class="metric-info">
+              <span class="metric-label">You'll Give</span>
+              <span class="metric-value">₹{{ totalDebtOwed() | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <mat-icon>receipt</mat-icon>
+            <div class="metric-info">
+              <span class="metric-label">Total Transactions</span>
+              <span class="metric-value">{{ totalTransactions() }}</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <mat-icon>people</mat-icon>
+            <div class="metric-info">
+              <span class="metric-label">Active Customers</span>
+              <span class="metric-value">{{ activeCustomers() }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cash Flow Chart -->
+        <div class="chart-card">
+          <h3>Cash Flow Trend</h3>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="cashFlowChartData()"
+              [options]="lineChartOptions"
+              type="line">
+            </canvas>
+          </div>
+        </div>
+
+        <!-- Customer Distribution -->
+        <div class="chart-card">
+          <h3>Customer Distribution</h3>
+          <div class="chart-container small">
+            <canvas baseChart
+              [data]="distributionChartData()"
+              [options]="doughnutChartOptions"
+              type="doughnut">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Customers Tab -->
+    <mat-tab label="Customers">
+      <div class="tab-content">
+        <div class="chart-card">
+          <h3>Top Customers by Outstanding Balance</h3>
+          <div class="chart-container large">
+            <canvas baseChart
+              [data]="topCustomersChartData()"
+              [options]="barChartOptions"
+              type="bar">
+            </canvas>
+          </div>
+        </div>
+
+        <!-- Customer List -->
+        <div class="customer-list">
+          <h3>All Customers</h3>
+          <div class="customer-item" *ngFor="let customer of topCustomers()">
+            <div class="customer-info">
+              <span class="customer-name">{{ customer.name }}</span>
+              <span class="customer-phone">{{ customer.phoneNumber }}</span>
+            </div>
+            <span class="customer-balance" [class.positive]="customer.currentBalance > 0" [class.negative]="customer.currentBalance < 0">
+              ₹{{ customer.currentBalance | number:'1.0-0' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Trends Tab -->
+    <mat-tab label="Trends">
+      <div class="tab-content">
+        <div class="chart-card">
+          <h3>Transaction Activity</h3>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="cashFlowChartData()"
+              [options]="lineChartOptions"
+              type="line">
+            </canvas>
+          </div>
+        </div>
+
+        <div class="insights-card">
+          <h3>Quick Insights</h3>
+          <div class="insight-item">
+            <mat-icon>trending_up</mat-icon>
+            <span>Total credit given: ₹{{ totalCreditGiven() | number:'1.0-0' }}</span>
+          </div>
+          <div class="insight-item">
+            <mat-icon>trending_down</mat-icon>
+            <span>Total debt owed: ₹{{ totalDebtOwed() | number:'1.0-0' }}</span>
+          </div>
+          <div class="insight-item">
+            <mat-icon>people</mat-icon>
+            <span>{{ activeCustomers() }} customers with outstanding balance</span>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

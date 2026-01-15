@@ -15,6 +15,7 @@ import { KhatabookEffects } from './store/khatabook.effects';
 import { registerLocaleData } from '@angular/common';
 import localeEnIn from '@angular/common/locales/en-IN';
 import { LOCALE_ID } from '@angular/core';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 registerLocaleData(localeEnIn);
 
@@ -34,6 +35,7 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
-          })
+          }),
+    provideCharts(withDefaultRegisterables())
   ]
 };

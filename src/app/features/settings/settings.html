@@ -1,0 +1,91 @@
+<div class="settings-container">
+  <header class="settings-header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Settings</h1>
+  </header>
+
+  <div class="settings-content">
+    <!-- Appearance Section -->
+    <section class="settings-section">
+      <h2 class="section-title">Appearance</h2>
+      <div class="settings-card">
+        <div class="setting-item" (click)="themeService.toggleTheme()">
+          <div class="setting-info">
+            <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            <div class="setting-text">
+              <span class="label">Dark Mode</span>
+              <span class="description">Currently {{ themeService.currentTheme() === 'dark' ? 'Enabled' : 'Disabled' }}</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Management Section -->
+    <section class="settings-section">
+      <h2 class="section-title">Data Management</h2>
+      <div class="settings-card">
+        <div class="setting-item" (click)="exportData()">
+          <div class="setting-info">
+            <mat-icon>download</mat-icon>
+            <div class="setting-text">
+              <span class="label">Export Backup</span>
+              <span class="description">Save your data to a JSON file</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+        
+        <mat-divider></mat-divider>
+
+        <div class="setting-item" (click)="fileInput.click()">
+          <div class="setting-info">
+            <mat-icon>upload</mat-icon>
+            <div class="setting-text">
+              <span class="label">Import Backup</span>
+              <span class="description">Restore data from a JSON backup</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+        <input type="file" #fileInput (change)="importData($event)" accept=".json" style="display: none">
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="settings-section">
+      <h2 class="section-title">About</h2>
+      <div class="settings-card">
+        <div class="setting-item inactive">
+          <div class="setting-info">
+            <mat-icon>info</mat-icon>
+            <div class="setting-text">
+              <span class="label">Version</span>
+              <span class="description">{{ version }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <mat-icon>help</mat-icon>
+            <div class="setting-text">
+              <span class="label">Help & Support</span>
+              <span class="description">Contact us for assistance</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">open_in_new</mat-icon>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-msg">
+      Made with 💖 for small businesses
+    </div>
+  </div>
+</div>

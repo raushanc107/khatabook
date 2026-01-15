@@ -7,28 +7,9 @@
                     <h1>Khatabook</h1>
                 </div>
                 <div class="actions">
-                <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+                <button mat-icon-button routerLink="/settings">
                     <mat-icon>settings</mat-icon>
                 </button>
-                <mat-menu #settingsMenu="matMenu">
-                    <button mat-menu-item (click)="themeService.toggleTheme()">
-                        <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
-                        <span>Toggle Theme</span>
-                    </button>
-                    <button mat-menu-item routerLink="/reports">
-                        <mat-icon>analytics</mat-icon>
-                        <span>Reports & Insights</span>
-                    </button>
-                    <button mat-menu-item (click)="exportData()">
-                        <mat-icon>download</mat-icon>
-                        <span>Export Backup</span>
-                    </button>
-                    <button mat-menu-item (click)="fileInput.click()">
-                        <mat-icon>upload</mat-icon>
-                        <span>Import Backup</span>
-                    </button>
-                    <input type="file" #fileInput (change)="importData($event)" accept=".json" style="display: none">
-                </mat-menu>
                 </div>
             </div>
         </header>

@@ -1,7 +1,27 @@
+@use '@angular/material' as mat;
+
 .settings-container {
     min-height: 100vh;
     background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
     padding-bottom: 3rem;
+}
+
+:host {
+    display: block;
+    background-color: var(--background-color);
+    min-height: 100vh;
+}
+
+.text-danger {
+    color: var(--error-color) !important;
+}
+
+.danger-card {
+    border: 1px solid rgba(var(--error-color-rgb), 0.2);
+
+    .setting-item:hover {
+        background-color: rgba(var(--error-color-rgb), 0.05);
+    }
 }
 
 :host-context(.dark-theme) .settings-container {

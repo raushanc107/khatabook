@@ -8,6 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ThemeService } from '../../core/services/theme.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { InfoDialogComponent } from '../../shared/components/info-dialog/info-dialog';
+import { FactoryResetDialogComponent } from './components/factory-reset-dialog/factory-reset-dialog';
 
 @Component({
   selector: 'app-settings',
@@ -111,5 +112,16 @@ export class SettingsComponent {
 
     reader.readAsText(file);
     input.value = '';
+  }
+
+  factoryReset() {
+    const dialogRef = this.dialog.open(FactoryResetDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'reset') {
+        this.localStorageService.clearData();
+        window.location.reload();
+      }
+    });
   }
 }

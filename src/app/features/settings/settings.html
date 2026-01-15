@@ -70,6 +70,24 @@
         </div>
         <input type="file" #fileInput (change)="importData($event)" accept=".json" style="display: none">
       </div>
+
+    </section>
+
+    <!-- Danger Zone Section -->
+    <section class="settings-section">
+      <h2 class="section-title text-danger">Danger Zone</h2>
+      <div class="settings-card danger-card">
+        <div class="setting-item" (click)="factoryReset()">
+          <div class="setting-info">
+            <mat-icon color="warn">delete_forever</mat-icon>
+            <div class="setting-text">
+              <span class="label text-danger">Factory Reset</span>
+              <span class="description">Permanently clear all data</span>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+      </div>
     </section>
 
     <!-- About Section -->

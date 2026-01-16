@@ -11,6 +11,7 @@ import { TranslationService } from '../../core/services/translation.service';
 import { InfoDialogComponent } from '../../shared/components/info-dialog/info-dialog';
 import { FactoryResetDialogComponent } from './components/factory-reset-dialog/factory-reset-dialog';
 import { LanguageSelectionDialogComponent } from '../../shared/components/language-selection-dialog/language-selection-dialog';
+import { ThemeSelectionDialogComponent } from '../../shared/components/theme-selection-dialog/theme-selection-dialog';
 
 @Component({
   selector: 'app-settings',
@@ -45,6 +46,13 @@ export class SettingsComponent {
   changeLanguage() {
     this.dialog.open(LanguageSelectionDialogComponent, {
       data: { allowCancel: true }
+    });
+  }
+
+  openThemeSelection() {
+    this.dialog.open(ThemeSelectionDialogComponent, {
+        width: '350px',
+        panelClass: 'theme-selection-dialog'
     });
   }
 

@@ -16,10 +16,9 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
+  // Default the application to a light color theme.
+  // color-scheme is handled in :root to support system preferences
+
 
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
@@ -38,16 +37,20 @@ body {
 
 /* Theme Definitions */
 :root {
+  /* Allow system dark mode detection */
+  color-scheme: light dark;
+
   /* Constant Colors (Brand) */
   --primary-color: #4f46e5;
+  --primary-color-rgb: 79, 70, 229;
+  /* Added for rgba usage */
   --primary-dark: #4338ca;
   --primary-light: #818cf8;
 
   --success-color: #10b981;
   --danger-color: #ef4444;
-}
 
-body.light-theme {
+  /* Default Light Theme Variables (applied everywhere as fallback) */
   --background-color: #f3f4f6;
   --surface-color: #ffffff;
   --text-primary: #111827;
@@ -62,7 +65,19 @@ body.light-theme {
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-theme {
+body.light-theme {
+  /* No additional vars needed as they are default in :root */
+  /* Force browser to render in light mode even if system is dark */
+  color-scheme: light;
+}
+
+// Mixin for dark theme styles to reuse in class and media query
+@mixin dark-theme-styles {
+  @include mat.theme((color: (theme-type: dark,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      )));
+
   --background-color: #121212;
   --surface-color: #1e1e1e;
   --text-primary: #f3f4f6;
@@ -78,6 +93,18 @@ body.dark-theme {
 
   /* Mat-specific overrides if needed */
   color-scheme: dark;
+}
+
+// Explicit Dark Class
+body.dark-theme {
+  @include dark-theme-styles;
+}
+
+// System Preference (Media Query) - Applied when NO explicit light class is present
+@media (prefers-color-scheme: dark) {
+  body:not(.light-theme) {
+    @include dark-theme-styles;
+  }
 }
 
 body {

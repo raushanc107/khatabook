@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{ translationService.t().settings.select_theme }}</h2>
+<mat-dialog-content>
+  <div class="theme-options">
+    <div class="theme-option" 
+         [class.selected]="themeService.currentTheme() === 'light'"
+         (click)="selectTheme('light')">
+      <div class="option-icon">
+        <mat-icon>light_mode</mat-icon>
+      </div>
+      <span class="option-label">{{ translationService.t().settings.theme_light }}</span>
+      <mat-icon class="check-icon" *ngIf="themeService.currentTheme() === 'light'">check_circle</mat-icon>
+    </div>
+
+    <div class="theme-option" 
+         [class.selected]="themeService.currentTheme() === 'dark'"
+         (click)="selectTheme('dark')">
+      <div class="option-icon">
+        <mat-icon>dark_mode</mat-icon>
+      </div>
+      <span class="option-label">{{ translationService.t().settings.theme_dark }}</span>
+      <mat-icon class="check-icon" *ngIf="themeService.currentTheme() === 'dark'">check_circle</mat-icon>
+    </div>
+
+    <div class="theme-option" 
+         [class.selected]="themeService.currentTheme() === 'system'"
+         (click)="selectTheme('system')">
+      <div class="option-icon">
+        <mat-icon>settings_brightness</mat-icon>
+      </div>
+      <span class="option-label">{{ translationService.t().settings.theme_system }}</span>
+      <mat-icon class="check-icon" *ngIf="themeService.currentTheme() === 'system'">check_circle</mat-icon>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{ translationService.t().common.cancel }}</button>
+</mat-dialog-actions>

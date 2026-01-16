@@ -13,43 +13,52 @@ export class ThemeService {
   
   // Signal to track current preference
   currentTheme = signal<Theme>('system');
+  
+  // Signal to track the actual system value
+  private systemQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  resolvedSystemTheme = signal<'dark' | 'light'>(this.systemQuery.matches ? 'dark' : 'light');
 
   constructor() {
+    // Migration: Force reset to 'system' for existing users to ensure they get the new behavior
+    const THEME_VERSION = 'v2';
+    const storedVersion = localStorage.getItem('theme_version');
+    
+    if (storedVersion !== THEME_VERSION) {
+        // Clear legacy theme preference to default to 'system'
+        localStorage.removeItem('theme');
+        localStorage.setItem('theme_version', THEME_VERSION);
+    }
+
     // Load from storage or default to system
     const stored = localStorage.getItem('theme') as Theme;
     if (stored) {
       this.currentTheme.set(stored);
     }
     
-    // Effect to apply theme whenever signal changes
-    effect(() => {
-       const theme = this.currentTheme();
-       this.applyTheme(theme);
-       localStorage.setItem('theme', theme);
+    // Listen for system changes
+    this.systemQuery.addEventListener('change', (e) => {
+        const newSystemTheme = e.matches ? 'dark' : 'light';
+        this.resolvedSystemTheme.set(newSystemTheme);
     });
     
-    // Listen for system changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', () => {
-        if (this.currentTheme() === 'system') {
-            this.applyTheme('system');
-        }
+    // Effect to apply theme whenever signal changes (preference or system)
+    effect(() => {
+       const theme = this.currentTheme();
+       const systemTheme = this.resolvedSystemTheme();
+       
+       this.applyTheme(theme, systemTheme);
+       localStorage.setItem('theme', theme);
     });
   }
 
   toggleTheme() {
+    // Legacy support if needed, or remove
     const current = this.currentTheme();
-    if (current === 'light') {
-        this.currentTheme.set('dark');
-    } else if (current === 'dark') {
-        this.currentTheme.set('light'); // Cycle: light -> dark -> light (or system?)
-        // Let's stick to simple Light/Dark toggle for the button, 
-        // maybe a separate "Reset to System" option in a real settings menu.
-        // For this simple icon toggle, user usually expects immediate switch.
+    if (current === 'system') {
+        const next = this.resolvedSystemTheme() === 'dark' ? 'light' : 'dark';
+        this.currentTheme.set(next);
     } else {
-        // If system, switch to the *opposite* of what system currently is
-        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        this.currentTheme.set(isSystemDark ? 'light' : 'dark');
+        this.currentTheme.set(current === 'dark' ? 'light' : 'dark');
     }
   }
   
@@ -57,21 +66,21 @@ export class ThemeService {
       this.currentTheme.set(theme);
   }
 
-  private applyTheme(theme: Theme) {
+  private applyTheme(theme: Theme, systemTheme: 'dark' | 'light') {
     const body = this.document.body;
     body.classList.remove('light-theme', 'dark-theme');
     
-    let activeTheme: 'light' | 'dark';
-    if (theme === 'system') {
-      activeTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } else {
-      activeTheme = theme as 'light' | 'dark';
-    }
-
-    body.classList.add(`${activeTheme}-theme`);
+    // Determine active visual theme
+    const visualTheme = theme === 'system' ? systemTheme : theme;
+    
+    // Always apply the corresponding class to ensure consistent styling (mixins, variables)
+    body.classList.add(`${visualTheme}-theme`);
     
     // Update theme-color meta tag for PWA and iOS
-    const themeColor = activeTheme === 'dark' ? '#1e1e1e' : '#ffffff';
+    const themeColor = visualTheme === 'dark' ? '#1e1e1e' : '#ffffff';
     this.meta.updateTag({ name: 'theme-color', content: themeColor });
+    
+    // Update color-scheme meta tag
+    this.meta.updateTag({ name: 'color-scheme', content: theme === 'system' ? 'light dark' : visualTheme });
   }
 }

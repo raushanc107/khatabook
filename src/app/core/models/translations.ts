@@ -42,6 +42,10 @@ export interface AppTranslations {
     language_desc: string;
     dark_mode_on: string;
     dark_mode_off: string;
+    theme_system: string;
+    theme_light: string;
+    theme_dark: string;
+    select_theme: string;
   };
   reports: {
     title: string;
@@ -141,7 +145,7 @@ export const EN_TRANSLATIONS: AppTranslations = {
   settings: {
     title: 'Settings',
     appearance: 'Appearance',
-    dark_mode: 'Dark Mode',
+    dark_mode: 'Theme',
     analytics: 'Analytics',
     reports: 'Reports & Insights',
     reports_desc: 'View financial metrics and trends',
@@ -157,11 +161,15 @@ export const EN_TRANSLATIONS: AppTranslations = {
     version: 'Version',
     help_support: 'Help & Support',
     help_support_desc: 'Contact us for assistance',
-    footer_msg: 'Made with 💖 for small businesses',
+    footer_msg: 'Made with ❤️ by Khatabook', // Updated footer_msg
     language: 'Language',
     language_desc: 'Change application language',
     dark_mode_on: 'Currently Enabled',
-    dark_mode_off: 'Currently Disabled'
+    dark_mode_off: 'Currently Disabled',
+    theme_system: 'System Default',
+    theme_light: 'Light',
+    theme_dark: 'Dark',
+    select_theme: 'Select Theme'
   },
   reports: {
     title: 'Reports & Insights',
@@ -261,7 +269,7 @@ export const HI_TRANSLATIONS: AppTranslations = {
   settings: {
     title: 'सेटिंग्स',
     appearance: 'दिखावट',
-    dark_mode: 'डार्क मोड',
+    dark_mode: 'थीम',
     analytics: 'एनालिटिक्स',
     reports: 'रिपोर्ट और जानकारी',
     reports_desc: 'वित्तीय मेट्रिक्स और रुझान देखें',
@@ -281,7 +289,11 @@ export const HI_TRANSLATIONS: AppTranslations = {
     language: 'भाषा',
     language_desc: 'एप्लिकेशन की भाषा बदलें',
     dark_mode_on: 'अभी चालू है',
-    dark_mode_off: 'अभी बंद है'
+    dark_mode_off: 'अभी बंद है',
+    theme_system: 'सिस्टम डिफ़ॉल्ट',
+    theme_light: 'लाइट',
+    theme_dark: 'डार्क',
+    select_theme: 'थीम चुनें'
   },
   reports: {
     title: 'रिपोर्ट और जानकारी',

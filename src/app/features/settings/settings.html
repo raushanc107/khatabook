@@ -28,12 +28,19 @@
     <section class="settings-section">
       <h2 class="section-title">{{ translationService.t().settings.appearance }}</h2>
       <div class="settings-card">
-        <div class="setting-item" (click)="themeService.toggleTheme()">
+        <div class="setting-item" (click)="openThemeSelection()">
           <div class="setting-info">
-            <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            <mat-icon>{{ themeService.currentTheme() === 'dark' ? 'dark_mode' : themeService.currentTheme() === 'light' ? 'light_mode' : 'settings_brightness' }}</mat-icon>
             <div class="setting-text">
               <span class="label">{{ translationService.t().settings.dark_mode }}</span>
-              <span class="description">{{ themeService.currentTheme() === 'dark' ? translationService.t().settings.dark_mode_on : translationService.t().settings.dark_mode_off }}</span>
+              <span class="description">
+                {{ themeService.currentTheme() === 'system' 
+                   ? (translationService.t().settings.theme_system + ' (' + (themeService.resolvedSystemTheme() === 'dark' ? translationService.t().settings.theme_dark : translationService.t().settings.theme_light) + ')') 
+                   : themeService.currentTheme() === 'dark' 
+                     ? translationService.t().settings.theme_dark 
+                     : translationService.t().settings.theme_light 
+                }}
+              </span>
             </div>
           </div>
           <mat-icon class="chevron">chevron_right</mat-icon>

@@ -160,7 +160,7 @@ export const EN_TRANSLATIONS: AppTranslations = {
     about: 'About',
     version: 'Version',
     help_support: 'Help & Support',
-    help_support_desc: 'Contact us for assistance',
+    help_support_desc: 'View developer portfolio',
     footer_msg: 'Made with ❤️ by Khatabook', // Updated footer_msg
     language: 'Language',
     language_desc: 'Change application language',
@@ -284,7 +284,7 @@ export const HI_TRANSLATIONS: AppTranslations = {
     about: 'बारे में',
     version: 'संस्करण',
     help_support: 'सहायता और समर्थन',
-    help_support_desc: 'सहायता के लिए हमसे संपर्क करें',
+    help_support_desc: 'पोर्टफोलियो और संपर्क जानकारी देखें',
     footer_msg: 'छोटे व्यवसायों के लिए 💖 के साथ बनाया गया',
     language: 'भाषा',
     language_desc: 'एप्लिकेशन की भाषा बदलें',

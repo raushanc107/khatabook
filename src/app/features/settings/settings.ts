@@ -145,4 +145,8 @@ export class SettingsComponent {
       }
     });
   }
+
+  openPortfolio() {
+    window.open('https://raushanc107.github.io/Portfolio/', '_blank');
+  }
 }
